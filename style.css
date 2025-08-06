@@ -1,0 +1,26 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f1e4e4;
+}
+h1{
+    text-align: center;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+button, input {
+  margin: 8px 0;
+  padding: 10px;
+  width: 300px;
+  font-size: 16px;
+}
+
+#output, #message {
+  margin-top: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
