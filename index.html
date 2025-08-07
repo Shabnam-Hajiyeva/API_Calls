@@ -12,22 +12,24 @@
     <script src="script.js"></script>
 
     <h1>Welcome to API Calls Project</h1>
-    <button id="fetchBtn">Fetch Data with fetch()</button>
-    <button id="xhrBtn">Fetch Data with XHR</button>
+    <div class="buttons">
+        <button id="fetchBtn">Fetch Data with fetch()</button>
+        <button id="xhrBtn">Fetch Data with XHR</button>
+    </div>
 
+    <div id="dataDisplay" class="output"></div>
 
-    <div id="output"></div>
-
-    <h2>Send or Update Post</h2>
-    <form id="postForm">
+    <h2>Send Data (POST / PUT)</h2>
+    <form id="dataForm">
         <input type="text" id="title" placeholder="Title" required>
         <input type="text" id="body" placeholder="Body" required>
-        <input type="number" id="postId" placeholder="Post ID (for update)">
-        <button type="submit">Submit</button>
+        <select id="method">
+            <option value="POST">POST</option>
+            <option value="PUT">PUT</option>
+        </select>
+        <button type="submit">Send</button>
     </form>
 
-
-    <div id="message"></div>
 </body>
 
 </html>
