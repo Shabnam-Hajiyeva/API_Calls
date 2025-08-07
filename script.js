@@ -67,3 +67,35 @@ document.getElementById("postForm").addEventListener("submit", function (e) {
     });
 });
 
+// Part 4: PUT request
+document.getElementById("putForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const id = document.getElementById("putId").value;
+  const title = document.getElementById("putTitle").value;
+  const body = document.getElementById("putBody").value;
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("PUT", `https://jsonplaceholder.typicode.com/posts/${id}`);
+  xhr.setRequestHeader("Content-type", "application/json");
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      const data = JSON.parse(xhr.responseText);
+      document.getElementById("output").innerHTML = `
+        <h3>PUT Success</h3>
+        <p><strong>ID:</strong> ${data.id}</p>
+        <p><strong>Title:</strong> ${data.title}</p>
+        <p><strong>Body:</strong> ${data.body}</p>`;
+    } else {
+      document.getElementById("output").innerText = "PUT error: " + xhr.status;
+    }
+  };
+
+  xhr.onerror = function () {
+    document.getElementById("output").innerText = "PUT network error";
+  };
+
+  const updatedData = JSON.stringify({ title, body });
+  xhr.send(updatedData);
+});
