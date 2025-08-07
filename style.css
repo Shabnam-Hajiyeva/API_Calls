@@ -11,16 +11,41 @@ h1, h2 {
   color: #333;
 }
 
-button, input {
-  margin: 8px 0;
-  padding: 10px;
-  width: 300px;
-  font-size: 16px;
+.buttons {
+    margin-bottom: 20px;
 }
 
-#output, #message {
-  margin-top: 20px;
-  background: #fff;
-  padding: 15px;
-  border: 1px solid #ccc;
+
+button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.output {
+    background-color: white;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    min-height: 100px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+form input, form select, form button {
+    margin-bottom: 10px;
+    padding: 8px;
 }
