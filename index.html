@@ -12,23 +12,25 @@
     <script src="script.js"></script>
 
     <h1>Welcome to API Calls Project</h1>
-    <div class="buttons">
-        <button id="fetchBtn">Fetch Data with fetch()</button>
-        <button id="xhrBtn">Fetch Data with XHR</button>
-    </div>
+     <button id="fetchBtn">Fetch with fetch()</button>
+  <button id="xhrBtn">Fetch with XHR</button>
 
-    <div id="dataDisplay" class="output"></div>
+  <div id="output"></div>
 
-    <h2>Send Data (POST / PUT)</h2>
-    <form id="dataForm">
-        <input type="text" id="title" placeholder="Title" required>
-        <input type="text" id="body" placeholder="Body" required>
-        <select id="method">
-            <option value="POST">POST</option>
-            <option value="PUT">PUT</option>
-        </select>
-        <button type="submit">Send</button>
-    </form>
+  <h2>Create Post (POST)</h2>
+  <form id="postForm">
+    <input type="text" id="postTitle" placeholder="Post Title" required />
+    <input type="text" id="postBody" placeholder="Post Body" required />
+    <button type="submit">Send POST</button>
+  </form>
+
+  <h2>Update Post (PUT)</h2>
+  <form id="putForm">
+    <input type="number" id="putId" placeholder="Post ID" required />
+    <input type="text" id="putTitle" placeholder="New Title" required />
+    <input type="text" id="putBody" placeholder="New Body" required />
+    <button type="submit">Send PUT</button>
+  </form>
 
 </body>
 

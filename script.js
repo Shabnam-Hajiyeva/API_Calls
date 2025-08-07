@@ -1,21 +1,23 @@
 // Task 1
-document.getElementById("fetchBtn").addEventListener("click", function () {
+document.getElementById("fetchBtn").addEventListener("click", () => {
   fetch("https://jsonplaceholder.typicode.com/posts/1")
-    .then(response => response.json())
+    .then(res => {
+      if (!res.ok) throw new Error("Server error");
+      return res.json();
+    })
     .then(data => {
       document.getElementById("output").innerHTML = `
         <h3>Fetch Result</h3>
         <p><strong>Title:</strong> ${data.title}</p>
-        <p><strong>Body:</strong> ${data.body}</p>
-      `;
+        <p><strong>Body:</strong> ${data.body}</p>`;
     })
-    .catch(error => {
-      document.getElementById("output").innerText = "Error: Could not fetch data.";
+    .catch(err => {
+      document.getElementById("output").innerText = "Fetch error: " + err.message;
     });
 });
 
 // Task 2: GET with XMLHttpRequest
-document.getElementById("xhrBtn").addEventListener("click", function () {
+document.getElementById("xhrBtn").addEventListener("click", () => {
   const xhr = new XMLHttpRequest();
   xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/2");
   xhr.onload = function () {
@@ -24,70 +26,44 @@ document.getElementById("xhrBtn").addEventListener("click", function () {
       document.getElementById("output").innerHTML = `
         <h3>XHR Result</h3>
         <p><strong>Title:</strong> ${data.title}</p>
-        <p><strong>Body:</strong> ${data.body}</p>
-      `;
+        <p><strong>Body:</strong> ${data.body}</p>`;
     } else {
-      document.getElementById("output").innerText = "Error: Failed to load data.";
+      document.getElementById("output").innerText = "XHR error: " + xhr.status;
     }
   };
   xhr.onerror = function () {
-    document.getElementById("output").innerText = "Error: Network problem.";
+    document.getElementById("output").innerText = "XHR network error";
   };
   xhr.send();
 });
 
-// Task 3 and 4: POST or PUT
+//Part 3 POST request
 document.getElementById("postForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
-  const title = document.getElementById("title").value;
-  const body = document.getElementById("body").value;
-  const postId = document.getElementById("postId").value;
+  const title = document.getElementById("postTitle").value;
+  const body = document.getElementById("postBody").value;
 
-  const data = {
-    title: title,
-    body: body
-  };
-
-  if (postId === "") {
-    fetch("https://jsonplaceholder.typicode.com/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+  fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({ title, body })
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to POST");
+      return res.json();
     })
-      .then(res => res.json())
-      .then(response => {
-        document.getElementById("message").innerHTML = `
-          <h3>Post Created</h3>
-          <p>ID: ${response.id}</p>
-          <p>Title: ${response.title}</p>
-          <p>Body: ${response.body}</p>
-        `;
-      })
-      .catch(() => {
-        document.getElementById("message").innerText = "Error: Failed to send post.";
-      });
-  } else {
-    // PUT Request
-    const xhr = new XMLHttpRequest();
-    xhr.open("PUT", `https://jsonplaceholder.typicode.com/posts/${postId}`);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onload = function () {
-      if (xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        document.getElementById("message").innerHTML = `
-          <h3>Post Updated</h3>
-          <p>ID: ${response.id}</p>
-          <p>Title: ${response.title}</p>
-          <p>Body: ${response.body}</p>
-        `;
-      } else {
-        document.getElementById("message").innerText = "Error: Could not update post.";
-      }
-    };
-    xhr.onerror = function () {
-      document.getElementById("message").innerText = "Error: Network problem.";
-    };
-    xhr.send(JSON.stringify(data));
-  }
+    .then(data => {
+      document.getElementById("output").innerHTML = `
+        <h3>POST Success</h3>
+        <p><strong>ID:</strong> ${data.id}</p>
+        <p><strong>Title:</strong> ${data.title}</p>
+        <p><strong>Body:</strong> ${data.body}</p>`;
+    })
+    .catch(err => {
+      document.getElementById("output").innerText = "POST error: " + err.message;
+    });
 });
+
